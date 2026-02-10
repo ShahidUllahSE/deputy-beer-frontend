@@ -21,7 +21,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ isOpen, onClose, onScan }) => {
   const [scanned, setScanned] = useState(false);
   const [facingMode, setFacingMode] = useState<"environment" | "user">("user");
   const [cameraError, setCameraError] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<number | null>(null);
   const lastScannedRef = useRef<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);

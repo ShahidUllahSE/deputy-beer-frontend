@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import posterImage from "../../assets/DEPUTY MUSIC POSTER 2 copy.png";
 
 export const LandingContainer = styled.div`
   display: flex;

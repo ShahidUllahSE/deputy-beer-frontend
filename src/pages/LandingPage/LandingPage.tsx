@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import QRCodeField from "../../components/QRCodeField/QRCodeField";
 import { FaCamera, FaUpload, FaCheckCircle } from "react-icons/fa";
 import QRScanner from "../../components/QRScanner/QRScanner";
 import { extractQRCode } from "../../utils/qrExtractor";
@@ -83,7 +82,6 @@ const LandingPage: React.FC = () => {
     { value: null, imagePreview: null },
   ]);
   const [scannerOpen, setScannerOpen] = useState(false);
-  const [currentScannerIndex, setCurrentScannerIndex] = useState<number | null>(null);
   const scannerIndexRef = useRef<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -103,7 +101,6 @@ const LandingPage: React.FC = () => {
       setAuthMode("signin");
       return;
     }
-    setCurrentScannerIndex(index);
     scannerIndexRef.current = index; // Store in ref to avoid closure issues
     setScannerOpen(true);
   };
@@ -182,7 +179,6 @@ const LandingPage: React.FC = () => {
       });
       setError(null);
       // Reset scanner index after successful scan
-      setCurrentScannerIndex(null);
       scannerIndexRef.current = null;
       // QR code value will be displayed in the field, no toast needed
     }
@@ -526,7 +522,6 @@ const LandingPage: React.FC = () => {
         onClose={() => {
           setScannerOpen(false);
           // Reset index when scanner closes (in case scan was cancelled)
-          setCurrentScannerIndex(null);
           scannerIndexRef.current = null;
         }}
         onScan={handleScannerResult}

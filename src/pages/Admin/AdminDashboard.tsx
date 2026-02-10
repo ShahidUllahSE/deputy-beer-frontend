@@ -13,31 +13,9 @@ import {
   SidebarTitle,
   SidebarMenu,
   MenuItem,
-  UserList,
-  UserCard,
-  UserInfo,
-  UserName,
-  UserEmail,
-  UserStats,
-  StatItem,
-  StatLabel,
-  StatValue,
-  HistoryPanel,
-  HistoryHeader,
-  HistoryTitle,
-  HistoryList,
-  HistoryCard,
-  HistoryCardHeader,
-  HistoryCardBody,
-  HistoryItem,
-  HistoryLabel,
-  HistoryValue,
-  HistoryDate,
-  HistoryType,
   EmptyState,
   LoadingState,
   LogoutButton,
-  UserActions,
   ActionButton,
   TableWrapper,
   UsersTable,
@@ -64,17 +42,11 @@ import {
   SearchInput,
   SummaryStats,
   SummaryText,
-  SummaryBadge,
 } from "./AdminDashboard.styles";
 import {
   FaUsers,
-  FaHistory,
   FaSignOutAlt,
-  FaTrophy,
   FaQrcode,
-  FaCalendar,
-  FaChartLine,
-  FaUser,
   FaBan,
   FaCheckCircle,
   FaTrash,
@@ -85,15 +57,6 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
-
-// Mask QR code
-const maskQRCode = (code: string): string => {
-  if (!code || code.length <= 4) return "****";
-  if (code.length <= 6) {
-    return `${code.substring(0, 2)}***${code.substring(code.length - 1)}`;
-  }
-  return `${code.substring(0, 2)}${"*".repeat(Math.min(code.length - 4, 6))}${code.substring(code.length - 2)}`;
-};
 
 // Format date
 const formatDate = (dateString: string): string => {
@@ -225,25 +188,42 @@ const AdminDashboard: React.FC = () => {
     navigate("/");
   };
 
-  const getTypeLabel = (type: string): string => {
-    switch (type) {
-      case "Entry":
-        return "Entry Submission";
-      case "QRCodeScan":
-        return "QR Code Scan";
-      default:
-        return type;
+  const handleBlockUser = async (userId: string) => {
+    if (window.confirm("Are you sure you want to block this user?")) {
+      try {
+        await apiService.blockUser(userId);
+        toast.success("User blocked successfully!");
+        fetchUsers(); // Refresh user list
+      } catch (error: any) {
+        console.error("Error blocking user:", error);
+        toast.error(error.message || "Failed to block user");
+      }
     }
   };
 
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "Entry":
-        return <FaTrophy />;
-      case "QRCodeScan":
-        return <FaQrcode />;
-      default:
-        return <FaHistory />;
+  const handleUnblockUser = async (userId: string) => {
+    if (window.confirm("Are you sure you want to unblock this user?")) {
+      try {
+        await apiService.unblockUser(userId);
+        toast.success("User unblocked successfully!");
+        fetchUsers(); // Refresh user list
+      } catch (error: any) {
+        console.error("Error unblocking user:", error);
+        toast.error(error.message || "Failed to unblock user");
+      }
+    }
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    if (window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
+      try {
+        await apiService.deleteUser(userId);
+        toast.success("User deleted successfully!");
+        fetchUsers(); // Refresh user list
+      } catch (error: any) {
+        console.error("Error deleting user:", error);
+        toast.error(error.message || "Failed to delete user");
+      }
     }
   };
 
