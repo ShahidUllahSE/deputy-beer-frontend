@@ -85,7 +85,7 @@ const LandingPage: React.FC = () => {
   const scannerIndexRef = useRef<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showQRForm, setShowQRForm] = useState(true);
+  const showQRForm = true; // Form is always visible
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
