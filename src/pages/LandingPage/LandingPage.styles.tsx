@@ -83,6 +83,7 @@ export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) =>
   background-color: ${({ $primary }) => ($primary ? "#0b3c6e" : "transparent")};
   color: ${({ $primary }) => ($primary ? "white" : "#0b3c6e")};
   white-space: nowrap;
+  text-decoration: none;
 
   &:hover {
     background-color: ${({ $primary }) => ($primary ? "#0a2d55" : "#e3f2fd")};
@@ -104,18 +105,15 @@ export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) =>
 export const HeroSection = styled.section`
   width: 100%;
   margin: 0;
-  padding: 0 5% 0.5rem 5%;
+  padding: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
   background: linear-gradient(135deg, #e3f2fd 0%, #5a8bb8 30%, #7fb8c4 60%, #a9d9e0 100%);
-  max-width: 1400px;
-  margin: 0 auto;
 
   @media (max-width: 1024px) {
-    padding: 0 4% 0.5rem 4%;
     gap: 2.5rem;
   }
 
@@ -143,10 +141,16 @@ export const HeroContent = styled.div`
   flex-direction: column;
   justify-content: center;
   min-width: 0;
+  padding: 2rem 5%;
+
+  @media (max-width: 1024px) {
+    padding: 2rem 4%;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
     align-items: center;
+    padding: 0;
   }
 `;
 
@@ -156,6 +160,7 @@ export const HeroImage = styled.div`
   align-items: center;
   justify-content: center;
   min-width: 0;
+  padding: 2rem 5%;
 
   img {
     max-width: 100%;
@@ -164,10 +169,15 @@ export const HeroImage = styled.div`
     border-radius: 8px;
   }
 
+  @media (max-width: 1024px) {
+    padding: 2rem 4%;
+  }
+
   @media (max-width: 768px) {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    padding: 0;
   }
 
   @media (max-width: 480px) {

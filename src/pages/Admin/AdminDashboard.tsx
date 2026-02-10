@@ -381,11 +381,18 @@ const AdminDashboard: React.FC = () => {
                             <StatBadge $variant="primary">{user.stats.totalScans}</StatBadge>
                           </TableCell>
                           <TableCell>
-                            <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
+                            <div style={{ 
+                              display: "flex", 
+                              gap: "0.4rem", 
+                              justifyContent: "center", 
+                              alignItems: "center",
+                              flexWrap: "nowrap"
+                            }}>
                               <ActionButton
                                 onClick={() => navigate(`/admin/users/${user._id}/history`)}
                                 $variant="view"
                                 title="View History"
+                                aria-label="View History"
                               >
                                 <FaEye />
                               </ActionButton>
@@ -394,6 +401,7 @@ const AdminDashboard: React.FC = () => {
                                   onClick={() => handleBlockUser(user._id)}
                                   $variant="block"
                                   title="Block User"
+                                  aria-label="Block User"
                                 >
                                   <FaBan />
                                 </ActionButton>
@@ -402,6 +410,7 @@ const AdminDashboard: React.FC = () => {
                                   onClick={() => handleUnblockUser(user._id)}
                                   $variant="unblock"
                                   title="Unblock User"
+                                  aria-label="Unblock User"
                                 >
                                   <FaCheckCircle />
                                 </ActionButton>
@@ -410,6 +419,7 @@ const AdminDashboard: React.FC = () => {
                                 onClick={() => handleDeleteUser(user._id)}
                                 $variant="delete"
                                 title="Delete User"
+                                aria-label="Delete User"
                               >
                                 <FaTrash />
                               </ActionButton>

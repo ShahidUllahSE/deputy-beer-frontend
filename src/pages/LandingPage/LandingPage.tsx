@@ -85,7 +85,7 @@ const LandingPage: React.FC = () => {
   const scannerIndexRef = useRef<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showQRForm, setShowQRForm] = useState(false);
+  const [showQRForm, setShowQRForm] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
@@ -250,7 +250,7 @@ const LandingPage: React.FC = () => {
         { value: null, imagePreview: null },
         { value: null, imagePreview: null },
       ]);
-      setShowQRForm(false); // Hide the form section after successful submission
+      // Form stays visible after submission
     } catch (error: any) {
       console.error("Error submitting entry:", error);
       const errorMessage = error.message || "Failed to submit entry. Please try again.";
@@ -377,14 +377,11 @@ const LandingPage: React.FC = () => {
         <StepsSubmitButtonWrapper>
           <StepsSubmitButton
             onClick={() => {
-              setShowQRForm(true);
-              // Scroll to form section after a brief delay to allow rendering
-              setTimeout(() => {
-                const formSection = document.getElementById('qr-form-section');
-                if (formSection) {
-                  formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }, 100);
+              // Scroll to form section
+              const formSection = document.getElementById('qr-form-section');
+              if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
             }}
           >
             <span>→</span>

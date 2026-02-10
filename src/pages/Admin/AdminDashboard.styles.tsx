@@ -129,12 +129,12 @@ export const AdminContent = styled.main`
 
   @media (max-width: 768px) {
     margin-left: 0;
-    padding: 1rem;
+    padding: 0.5rem;
     width: 100%;
   }
 
   @media (max-width: 480px) {
-    padding: 0.75rem;
+    padding: 0.25rem;
   }
 `;
 
@@ -216,53 +216,73 @@ export const UserActions = styled.div`
 `;
 
 export const ActionButton = styled.button<{ $variant?: "view" | "block" | "unblock" | "delete" }>`
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
+  transition: all 0.2s ease;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
   font-family: "Manrope", sans-serif;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
   ${({ $variant }) => {
     switch ($variant) {
       case "view":
         return `
-          background: #0b3c6e;
+          background: linear-gradient(135deg, #0b3c6e 0%, #1a5a8a 100%);
           color: white;
           &:hover {
-            background: #1a5a8a;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #1a5a8a 0%, #0b3c6e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(11, 60, 110, 0.3);
+          }
+          &:active {
+            transform: translateY(0);
           }
         `;
       case "block":
         return `
-          background: #ffaa00;
+          background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
           color: white;
           &:hover {
-            background: #ff8800;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+          }
+          &:active {
+            transform: translateY(0);
           }
         `;
       case "unblock":
         return `
-          background: #00aa44;
+          background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
           color: white;
           &:hover {
-            background: #008833;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #388e3c 0%, #4caf50 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+          }
+          &:active {
+            transform: translateY(0);
           }
         `;
       case "delete":
         return `
-          background: #ff4444;
+          background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
           color: white;
           &:hover {
-            background: #cc0000;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+          }
+          &:active {
+            transform: translateY(0);
           }
         `;
       default:
@@ -271,10 +291,40 @@ export const ActionButton = styled.button<{ $variant?: "view" | "block" | "unblo
           color: #333;
           &:hover {
             background: #e0e0e0;
+            transform: translateY(-2px);
           }
         `;
     }
   }}
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  @media (max-width: 768px) {
+    width: 28px;
+    height: 28px;
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 26px;
+    height: 26px;
+    padding: 0.35rem;
+    font-size: 0.75rem;
+    
+    svg {
+      width: 11px;
+      height: 11px;
+    }
+  }
 `;
 
 export const HistoryPanel = styled.div`
@@ -449,11 +499,16 @@ export const ContentContainer = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-top: 0;
   }
 
   @media (max-width: 480px) {
-    padding: 0.75rem;
+    padding: 0.5rem;
+    padding-left: 3.5rem;
+    border-radius: 4px;
+    margin-top: 0;
   }
 `;
 
@@ -466,12 +521,19 @@ export const ContentHeader = styled.div`
   gap: 1rem;
 
   @media (max-width: 768px) {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   @media (max-width: 480px) {
-    margin-bottom: 0.75rem;
-    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    gap: 0.25rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 3.5rem;
+    min-height: 2.5rem;
   }
 `;
 
@@ -482,11 +544,11 @@ export const ContentTitle = styled.h2`
   font-size: 2rem;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.25rem;
+    font-size: 0.95rem;
   }
 `;
 
@@ -499,7 +561,12 @@ export const SearchContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 0.25rem;
   }
 `;
 
@@ -522,6 +589,13 @@ export const SearchInput = styled.input`
   @media (max-width: 768px) {
     width: 100%;
     min-width: 100%;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
   }
 `;
 
@@ -531,6 +605,16 @@ export const SummaryStats = styled.div`
   margin-bottom: 1rem;
   flex-wrap: wrap;
   align-items: center;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 0.25rem;
+    gap: 0.25rem;
+  }
 `;
 
 export const SummaryText = styled.span`
@@ -538,6 +622,14 @@ export const SummaryText = styled.span`
   color: #666;
   font-weight: 600;
   font-family: "Manrope", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const SummaryBadge = styled.span`
@@ -562,11 +654,14 @@ export const TableWrapper = styled.div`
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow-x: auto;
   }
 
   @media (max-width: 480px) {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    width: 100%;
   }
 `;
 
@@ -582,13 +677,19 @@ export const UsersTable = styled.table`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
-    min-width: 600px;
-    font-size: 0.85rem;
+    min-width: 100%;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    display: block;
+    overflow-x: auto;
   }
 
   @media (max-width: 480px) {
-    min-width: 500px;
-    font-size: 0.75rem;
+    min-width: 100%;
+    font-size: 0.7rem;
+    border-radius: 2px;
+    display: block;
+    overflow-x: auto;
   }
 `;
 
@@ -627,15 +728,20 @@ export const TableHeaderCell = styled.th`
   color: white;
 
   @media (max-width: 768px) {
-    padding: 0.5rem 0.6rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.2px;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1px;
   }
 
   @media (max-width: 480px) {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.65rem;
+    padding: 0.25rem 0.3rem;
+    font-size: 0.6rem;
     letter-spacing: 0;
+    
+    &:nth-child(4),
+    &:nth-child(5) {
+      display: none;
+    }
   }
 `;
 
@@ -661,6 +767,10 @@ export const TableRow = styled.tr`
   &:last-child {
     border-bottom: none;
   }
+
+  @media (max-width: 480px) {
+    border-bottom: 1px solid #e8e8e8;
+  }
 `;
 
 export const TableCell = styled.td`
@@ -673,15 +783,20 @@ export const TableCell = styled.td`
   max-width: 150px;
 
   @media (max-width: 768px) {
-    padding: 0.45rem 0.6rem;
-    font-size: 0.75rem;
-    max-width: 120px;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.7rem;
+    max-width: 100px;
   }
 
   @media (max-width: 480px) {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.7rem;
-    max-width: 100px;
+    padding: 0.25rem 0.3rem;
+    font-size: 0.65rem;
+    max-width: 80px;
+    
+    &:nth-child(4),
+    &:nth-child(5) {
+      display: none;
+    }
   }
 `;
 
@@ -697,6 +812,18 @@ export const StatBadge = styled.span<{ $variant?: "primary" | "success" | "warni
   color: #1a1a1a;
   background-color: #ffc107;
   font-family: "Manrope", sans-serif;
+
+  @media (max-width: 768px) {
+    padding: 0.15em 0.4em;
+    font-size: 0.65em;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.1em 0.3em;
+    font-size: 0.6em;
+    border-radius: 6px;
+  }
 `;
 
 export const StatusBadge = styled.span<{ $variant?: "active" | "blocked" | "unverified" }>`
@@ -712,6 +839,18 @@ export const StatusBadge = styled.span<{ $variant?: "active" | "blocked" | "unve
   background-color: #ffc107;
   font-family: "Manrope", sans-serif;
   text-transform: uppercase;
+
+  @media (max-width: 768px) {
+    padding: 0.15em 0.4em;
+    font-size: 0.65em;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.1em 0.3em;
+    font-size: 0.6em;
+    border-radius: 6px;
+  }
 `;
 
 export const BackButton = styled.button`
@@ -751,8 +890,16 @@ export const PaginationContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: stretch;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 0.25rem;
+    padding-top: 0.25rem;
+    gap: 0.25rem;
   }
 `;
 
@@ -760,6 +907,14 @@ export const PaginationInfo = styled.div`
   color: #666;
   font-size: 0.9rem;
   font-family: "Manrope", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const PaginationControls = styled.div`
@@ -802,6 +957,18 @@ export const PaginationButton = styled.button<{ $active?: boolean }>`
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
+    min-width: 35px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    min-width: 30px;
+  }
 `;
 
 export const ExportButton = styled.button`
@@ -831,13 +998,14 @@ export const ExportButton = styled.button`
   }
 
   @media (max-width: 768px) {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    gap: 0.25rem;
   }
 
   @media (max-width: 480px) {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
     gap: 0.25rem;
     
     span {
@@ -849,28 +1017,46 @@ export const ExportButton = styled.button`
 export const MobileMenuButton = styled.button`
   display: none;
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  top: 0.75rem;
+  left: 0.75rem;
   z-index: 1001;
-  background: #0b3c6e;
+  background: linear-gradient(135deg, #0b3c6e 0%, #1a5a8a 100%);
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.75rem;
-  font-size: 1.25rem;
+  padding: 0.6rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(11, 60, 110, 0.3);
   transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    background: #1a5a8a;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #1a5a8a 0%, #0b3c6e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(11, 60, 110, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   @media (max-width: 768px) {
     display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
   }
 `;
 
