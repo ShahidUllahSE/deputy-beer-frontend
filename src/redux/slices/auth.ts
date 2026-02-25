@@ -26,10 +26,10 @@ const getInitialState = (): AuthState => {
   }
 
   return {
-    isLoggedIn: false,
-    token: null,
-    userId: null,
-    username: null,
+  isLoggedIn: false,
+  token: null,
+  userId: null,
+  username: null,
     role: null,
   };
 };

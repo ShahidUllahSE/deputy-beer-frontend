@@ -5,22 +5,14 @@ import { toast } from "react-toastify";
 import { FaCamera, FaUpload, FaCheckCircle } from "react-icons/fa";
 import QRScanner from "../../components/QRScanner/QRScanner";
 import { extractQRCode } from "../../utils/qrExtractor";
-import posterImage from "../../assets/DEPUTY MUSIC POSTER 2 copy.png";
+import deputyBanner from "../../assets/deputyBanner.jpg";
+import howToEnterImage from "../../assets/How to enter.png";
 import {
   LandingContainer,
   HeroSection,
-  HeroContent,
-  HeroHeadline,
-  HeroSubheadline,
-  HeroImage,
   InfoStepsSection,
   StepsTitle,
-  InfoStepsContainer,
-  InfoStepItem,
-  StepHeader,
-  StepBanner,
-  StepNumberCircle,
-  InfoStepText,
+  StepsImageContainer,
   StepsSubmitButtonWrapper,
   StepsSubmitButton,
   QRFormSection,
@@ -212,7 +204,7 @@ const LandingPage: React.FC = () => {
 
     try {
       const qrCodeValues = qrCodes.map((qr) => qr.value).filter(Boolean) as string[];
-      
+
       // Validate each QR code before submitting
       const validationResults = await Promise.all(
         qrCodeValues.map(async (code, idx) => {
@@ -242,7 +234,7 @@ const LandingPage: React.FC = () => {
       const response = await apiService.submitEntry(qrCodeValues);
 
       toast.success(response.message || "Entry submitted successfully! Good luck!");
-      
+
       // Reset form after successful submission
       setQrCodes([
         { value: null, imagePreview: null },
@@ -254,14 +246,14 @@ const LandingPage: React.FC = () => {
     } catch (error: any) {
       console.error("Error submitting entry:", error);
       const errorMessage = error.message || "Failed to submit entry. Please try again.";
-      
+
       // Check if error message indicates invalid/used QR codes
       if (errorMessage.includes("invalid") || errorMessage.includes("used") || errorMessage.includes("already")) {
         setError(`QR Code Error: ${errorMessage}`);
       } else {
         setError(errorMessage);
       }
-      
+
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -278,8 +270,8 @@ const LandingPage: React.FC = () => {
           <AuthButtons>
             {isLoggedIn ? (
               <>
-                <span style={{ 
-                  color: "#333", 
+                <span style={{
+                  color: "#333",
                   fontWeight: 600,
                   fontSize: "14px",
                   whiteSpace: "nowrap",
@@ -298,7 +290,7 @@ const LandingPage: React.FC = () => {
                     My History
                   </AuthButton>
                 )}
-                <AuthButton 
+                <AuthButton
                   onClick={() => {
                     dispatch(logout());
                     localStorage.removeItem("token");
@@ -325,7 +317,12 @@ const LandingPage: React.FC = () => {
       </Header>
 
       <HeroSection>
-        <HeroContent>
+        <img
+          src={deputyBanner}
+          alt="Deputy Beer Banner"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+        {/* <HeroContent>
           <HeroHeadline>
             ENTER TO WIN A TRIP FOR YOU&nbsp;+&nbsp;3<br />
             TO THE CARIBBEAN'S BIGGEST MUSIC FESTIVALS
@@ -333,47 +330,19 @@ const LandingPage: React.FC = () => {
           <HeroSubheadline>
             Bring De Vibes to the Caribbean's biggest music festivals
           </HeroSubheadline>
-        </HeroContent>
-        <HeroImage>
-          <img 
-            src={posterImage} 
-            alt="Deputy Music Poster" 
-          />
-        </HeroImage>
+        </HeroContent> */}
       </HeroSection>
 
       <InfoStepsSection>
-        <StepsTitle>HERE'S HOW TO ENTER</StepsTitle>
-        <InfoStepsContainer>
-          <InfoStepItem>
-            <StepHeader>
-              <StepBanner>STEP</StepBanner>
-              <StepNumberCircle>1</StepNumberCircle>
-            </StepHeader>
-            <InfoStepText>
-              Scan and upload 4 QR codes to enter
-            </InfoStepText>
-          </InfoStepItem>
-          <InfoStepItem>
-            <StepHeader>
-              <StepBanner>STEP</StepBanner>
-              <StepNumberCircle>2</StepNumberCircle>
-            </StepHeader>
-            <InfoStepText>
-              1 entry = 4 crowns uploaded
-            </InfoStepText>
-          </InfoStepItem>
-          <InfoStepItem>
-            <StepHeader>
-              <StepBanner>STEP</StepBanner>
-              <StepNumberCircle>3</StepNumberCircle>
-            </StepHeader>
-            <InfoStepText>
-              10 winners announced every week
-            </InfoStepText>
-          </InfoStepItem>
-        </InfoStepsContainer>
-        
+        <StepsTitle>HOW TO ENTER</StepsTitle>
+        <StepsImageContainer>
+          <img
+            src={howToEnterImage}
+            alt="How to Enter Steps"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+        </StepsImageContainer>
+
         <StepsSubmitButtonWrapper>
           <StepsSubmitButton
             onClick={() => {
@@ -397,7 +366,7 @@ const LandingPage: React.FC = () => {
               ENTER TO WIN A TRIP FOR YOU&nbsp;+&nbsp;3<br />
               TO THE CARIBBEAN'S BIGGEST MUSIC FESTIVALS
             </QRFormTitle>
-            
+
             <QRFormSubtitle>
               Bring De Vibes to the Caribbean's biggest festivals Scan and upload festivals.
             </QRFormSubtitle>
@@ -412,8 +381,8 @@ const LandingPage: React.FC = () => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                           <ModalQRFieldLabel>Crown #{index + 1}</ModalQRFieldLabel>
                           {!hasValue && (
-                            <span style={{ 
-                              fontSize: '0.8rem', 
+                            <span style={{
+                              fontSize: '0.8rem',
                               color: '#999',
                               fontFamily: '"Manrope", sans-serif'
                             }}>
@@ -422,8 +391,8 @@ const LandingPage: React.FC = () => {
                           )}
                         </div>
                         {hasValue && qr.value && (
-                          <span style={{ 
-                            fontSize: '0.7rem', 
+                          <span style={{
+                            fontSize: '0.7rem',
                             color: '#666',
                             fontFamily: '"Manrope", sans-serif',
                             wordBreak: 'break-all',
@@ -436,7 +405,7 @@ const LandingPage: React.FC = () => {
                       <ModalQRFieldActions>
                         {hasValue ? (
                           <>
-                            <ModalQRFieldIcon 
+                            <ModalQRFieldIcon
                               $uploaded
                               onClick={() => !isSubmitting && handleRemove(index)}
                               disabled={isSubmitting}
@@ -496,9 +465,9 @@ const LandingPage: React.FC = () => {
                 {isSubmitting ? "Submitting..." : "SUBMIT ENTRY"}
               </ModalSubmitButton>
               {!isLoggedIn && (
-                <p style={{ 
-                  marginTop: "1rem", 
-                  color: "#666", 
+                <p style={{
+                  marginTop: "1rem",
+                  color: "#666",
                   fontSize: "14px",
                   textAlign: "center",
                   padding: "0 1rem",

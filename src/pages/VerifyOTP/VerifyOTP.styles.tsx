@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -32,7 +33,7 @@ export const Title = styled.h1`
   font-weight: 700;
   color: #333;
   margin-bottom: 0.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 1.5rem;
@@ -44,7 +45,7 @@ export const Subtitle = styled.p`
   color: #666;
   margin-bottom: 2rem;
   line-height: 1.6;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   strong {
     color: #333;
@@ -77,7 +78,7 @@ export const OTPInput = styled.input`
   border-radius: 8px;
   outline: none;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   color: #333;
 
   &:focus {
@@ -101,14 +102,14 @@ export const ErrorMessage = styled.p`
   color: #a9d9e0;
   font-size: 0.9rem;
   margin-bottom: 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const TimerText = styled.p`
   color: #666;
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   strong {
     color: #a9d9e0;
@@ -130,7 +131,7 @@ export const SubmitButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover:not(:disabled) {
     background-color: #7fb8c4;
@@ -153,7 +154,7 @@ export const SubmitButton = styled.button`
 export const ResendText = styled.p`
   font-size: 0.9rem;
   color: #666;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   margin: 0;
 `;
 
@@ -165,7 +166,7 @@ export const ResendButton = styled.button`
   cursor: pointer;
   text-decoration: underline;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   padding: 0;
   margin-left: 4px;
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -26,7 +27,7 @@ export const FormContainer = styled.div`
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 500px;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     padding: 2rem;
@@ -46,7 +47,7 @@ export const Title = styled.h2`
   margin-bottom: 0.8rem;
   font-size: 2rem;
   font-weight: 900;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   position: relative;
   padding-bottom: 1rem;
 
@@ -86,7 +87,7 @@ export const Label = styled.label`
   color: #333;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const Input = styled.input`
@@ -95,7 +96,7 @@ export const Input = styled.input`
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   transition: border-color 0.3s ease;
   box-sizing: border-box;
 
@@ -115,7 +116,7 @@ export const ErrorMessage = styled.p`
   color: #dc3545;
   font-size: 0.75rem;
   margin-top: 0.25rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const ButtonDiv = styled.div`
@@ -133,7 +134,7 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(11, 60, 110, 0.3);
@@ -155,7 +156,7 @@ export const FooterText = styled.p`
   margin-top: 1.5rem;
   font-size: 0.9rem;
   color: #666;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const SwitchText = styled.span`

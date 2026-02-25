@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const FooterContainer = styled.footer`
   background: linear-gradient(135deg, #0b3c6e 0%, #2d6ba3 100%);
@@ -77,7 +78,7 @@ export const FooterLogo = styled.div`
   font-weight: 900;
   color: white;
   cursor: pointer;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-shadow: 
     -2px -2px 0 #0b3c6e,
     2px -2px 0 #0b3c6e,
@@ -111,7 +112,7 @@ export const FooterTagline = styled.p`
   font-size: 0.9rem;
   color: white;
   font-weight: 600;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: -0.5rem 0 0 0;
@@ -158,7 +159,7 @@ export const FooterLink = styled.button`
   font-size: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   padding: 0;
   margin: 0;
   font-weight: 500;
@@ -186,7 +187,7 @@ export const FooterContact = styled.div`
   gap: 1.5rem;
   color: white;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -240,7 +241,7 @@ export const FooterSocial = styled.div`
 export const FooterHashtags = styled.div`
   color: white;
   font-size: 0.85rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-align: center;
   word-break: break-word;
   max-width: 100%;
@@ -267,7 +268,7 @@ export const FooterNote = styled.p`
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
   padding: 0 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-align: center;
   word-break: break-word;
   max-width: 100%;

@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
+import { COLORS } from "../../constants/colors";
 
 export const LandingContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: white;
+  background: ${COLORS.white};
 `;
 
 export const Header = styled.header`
@@ -43,8 +45,8 @@ export const HeaderContent = styled.div`
 export const Logo = styled.div`
   font-size: 20px;
   font-weight: 800;
-  color: #0b3c6e;
-  font-family: "Manrope", sans-serif;
+  color: ${COLORS.navy};
+  font-family: ${FONTS.PRIMARY};
   white-space: nowrap;
   letter-spacing: -0.5px;
 
@@ -78,15 +80,15 @@ export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) =>
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
-  border: ${({ $primary }) => ($primary ? "none" : "2px solid #0b3c6e")};
-  background-color: ${({ $primary }) => ($primary ? "#0b3c6e" : "transparent")};
-  color: ${({ $primary }) => ($primary ? "white" : "#0b3c6e")};
+  font-family: ${FONTS.PRIMARY};
+  border: ${({ $primary }) => ($primary ? "none" : `2px solid ${COLORS.navy}`)};
+  background-color: ${({ $primary }) => ($primary ? COLORS.navy : "transparent")};
+  color: ${({ $primary }) => ($primary ? COLORS.white : COLORS.navy)};
   white-space: nowrap;
   text-decoration: none;
 
   &:hover {
-    background-color: ${({ $primary }) => ($primary ? "#0a2d55" : "#e3f2fd")};
+    background-color: ${({ $primary }) => ($primary ? COLORS.primaryBlue : COLORS.lightBlue)};
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
@@ -107,31 +109,16 @@ export const HeroSection = styled.section`
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-  background: linear-gradient(135deg, #e3f2fd 0%, #5a8bb8 30%, #7fb8c4 60%, #a9d9e0 100%);
+  justify-content: center;
+  position: relative;
 
-  @media (max-width: 1024px) {
-    gap: 2.5rem;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 1.5rem 2rem 0.5rem 2rem;
-    gap: 2rem;
-    text-align: center;
-  }
-
-  @media (max-width: 480px) {
-    padding: 1.75rem 1.25rem 0.5rem 1.25rem;
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 360px) {
-    padding: 1.5rem 0.5rem 0.25rem 0.5rem;
-    gap: 1rem;
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
   }
 `;
 
@@ -142,6 +129,10 @@ export const HeroContent = styled.div`
   justify-content: center;
   min-width: 0;
   padding: 2rem 5%;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
 
   @media (max-width: 1024px) {
     padding: 2rem 4%;
@@ -150,7 +141,11 @@ export const HeroContent = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     align-items: center;
-    padding: 0;
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 1.25rem;
   }
 `;
 
@@ -191,14 +186,15 @@ export const HeroHeadline = styled.h1`
   margin: 0;
   padding: 0;
   line-height: 1.2;
-  color: #0b3c6e;
-  font-family: "Manrope", sans-serif;
+  color: white;
+  font-family: ${FONTS.PRIMARY};
   letter-spacing: -0.3px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-line;
   text-align: left;
   margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 1200px) {
     font-size: 2.25rem;
@@ -247,12 +243,13 @@ export const HeroSubheadline = styled.p`
   margin: 0;
   padding: 0;
   line-height: 1.4;
-  color: #a9d9e0;
-  font-family: "Manrope", sans-serif;
+  color: ${COLORS.white};
+  font-family: ${FONTS.PRIMARY};
   letter-spacing: 0.3px;
   text-align: left;
   position: relative;
   padding-left: 1.5rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.5);
 
   &::before {
     content: "";
@@ -262,7 +259,7 @@ export const HeroSubheadline = styled.p`
     transform: translateY(-50%);
     width: 4px;
     height: 100%;
-    background: linear-gradient(to bottom, #0b3c6e, #2d6ba3);
+    background: linear-gradient(to bottom, ${COLORS.white}, rgba(255, 255, 255, 0.7));
     border-radius: 2px;
   }
 
@@ -319,7 +316,7 @@ export const HeroSubtext = styled.p`
   font-size: 1.4rem;
   font-weight: 600;
   color: white;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.6);
   position: relative;
   z-index: 2;
@@ -351,75 +348,90 @@ export const HeroSubtext = styled.p`
 
 export const InfoStepsSection = styled.section`
   width: 100%;
-  padding: 2rem 5% 2.5rem 5%;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 3rem 5% 2.5rem 5%;
+  background: white;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(to right, transparent, #0b3c6e, transparent);
-  }
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 
   @media (max-width: 1024px) {
-    padding: 1.75rem 4% 2rem 4%;
+    padding: 2.5rem 4% 2rem 4%;
   }
 
   @media (max-width: 768px) {
-    padding: 1.5rem 2rem 1.75rem 2rem;
+    padding: 2rem 2rem 1.75rem 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   @media (max-width: 480px) {
-    padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+    padding: 1.5rem 1.25rem 1.5rem 1.25rem;
+  }
+`;
+
+export const StepsImageContainer = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+    
+    img {
+      border-radius: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 1.25rem;
+    
+    img {
+      border-radius: 8px;
+    }
   }
 `;
 
 export const StepsTitle = styled.h2`
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 900;
   color: #0b3c6e;
   text-align: center;
-  margin: 0 0 2rem 0;
-  font-family: "Manrope", sans-serif;
+  margin: 0 0 3rem 0;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.3px;
   position: relative;
-  display: inline-block;
+  display: block;
   width: 100%;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(to right, transparent, #0b3c6e, transparent);
-    border-radius: 2px;
-  }
-
   @media (max-width: 768px) {
-    font-size: 1.75rem;
-    margin-bottom: 1.75rem;
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.2px;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.5px;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1px;
     word-break: break-word;
   }
 
   @media (max-width: 360px) {
-    font-size: 1.1rem;
-    letter-spacing: 0.3px;
+    font-size: 1.3rem;
+    letter-spacing: 0px;
   }
 `;
 
@@ -428,144 +440,120 @@ export const InfoStepsContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0;
   position: relative;
 
   @media (max-width: 968px) {
     flex-direction: column;
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  @media (max-width: 640px) {
-    gap: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    gap: 1.5rem;
+    gap: 0;
+    align-items: stretch;
   }
 `;
 
-export const InfoStepItem = styled.div`
+export const InfoStepItem = styled.div<{ $isOrange?: boolean; $hasChevron?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
   position: relative;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(169, 217, 224, 0.15);
-    border-color: #0b3c6e;
-  }
+  background: ${({ $isOrange }) => ($isOrange ? COLORS.orange : COLORS.white)};
+  padding: 2rem 1.5rem 2rem 1.5rem;
+  padding-right: ${({ $hasChevron }) => ($hasChevron ? "3rem" : "1.5rem")};
+  border-radius: ${({ $hasChevron }) => ($hasChevron ? "12px 0 0 12px" : "0 12px 12px 0")};
+  min-height: 200px;
+  justify-content: flex-start;
+  clip-path: ${({ $hasChevron }) =>
+    $hasChevron
+      ? "polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%)"
+      : "polygon(0 0, 100% 0, 100% 100%, 0 100%)"};
 
   @media (max-width: 968px) {
     width: 100%;
-    max-width: 600px;
-    align-items: center;
-    padding: 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    min-height: 180px;
+    padding: 1.75rem 1.5rem;
+    padding-right: 1.5rem;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
   @media (max-width: 480px) {
-    padding: 1rem;
+    padding: 1.5rem 1.25rem;
+    min-height: 160px;
     border-radius: 10px;
   }
 `;
 
-export const StepHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  width: 100%;
-
-  @media (max-width: 968px) {
-    justify-content: center;
-  }
-`;
-
-export const StepBanner = styled.div`
-  background-color: #0b3c6e;
-  color: white;
-  padding: 0.5rem 1.25rem;
-  font-size: 1rem;
-  font-weight: 800;
-  font-family: "Manrope", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
-  position: relative;
-
-  @media (max-width: 768px) {
-    padding: 0.45rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 0.4rem 0.85rem;
-    font-size: 0.85rem;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
-  }
-`;
-
-export const StepNumberCircle = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+export const StepNumberSquare = styled.div`
+  width: 50px;
+  height: 50px;
   background-color: #0b3c6e;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 900;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   flex-shrink: 0;
-  margin-left: -0.5rem;
-  z-index: 1;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
 
   @media (max-width: 768px) {
-    width: 55px;
-    height: 55px;
-    font-size: 1.75rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
   }
 
   @media (max-width: 480px) {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    margin-left: -0.4rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 `;
 
-export const InfoStepText = styled.p`
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-  line-height: 1.5;
-  font-family: "Manrope", sans-serif;
-  text-align: left;
-
-  @media (max-width: 968px) {
-    text-align: center;
-  }
+export const StepMainText = styled.div`
+  font-size: 2rem;
+  font-weight: 900;
+  color: #000;
+  margin: 0 0 0.75rem 0;
+  font-family: ${FONTS.PRIMARY};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
 
   @media (max-width: 768px) {
-    font-size: 0.95rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+  }
+`;
+
+export const StepSubText = styled.div`
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  font-family: ${FONTS.PRIMARY};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
   }
 `;
 
@@ -611,7 +599,7 @@ export const StepsSubmitButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(11, 60, 110, 0.3);
@@ -701,7 +689,7 @@ export const QRFormTitle = styled.h2`
   font-weight: 900;
   color: #0b3c6e;
   margin: 0 0 0.5rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.3px;
   line-height: 1.25;
@@ -720,7 +708,7 @@ export const QRFormSubtitle = styled.p`
   font-size: 0.9rem;
   color: #0b3c6e;
   margin: 0 0 1.5rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   line-height: 1.4;
   text-align: left;
 
@@ -781,7 +769,7 @@ export const ModalQRFieldLabel = styled.span`
   font-size: 0.95rem;
   font-weight: 600;
   color: #0b3c6e;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 0.85rem;
@@ -839,7 +827,7 @@ export const ModalQRFieldStatus = styled.span`
   font-size: 0.85rem;
   color: #0b3c6e;
   font-weight: 500;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   margin-left: 0.25rem;
 
   @media (max-width: 480px) {
@@ -852,7 +840,7 @@ export const ModalSubmitText = styled.p`
   color: #0b3c6e;
   text-align: center;
   margin: 1rem 0 0.75rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 0.8rem;
@@ -870,7 +858,7 @@ export const ModalSubmitButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(11, 60, 110, 0.3);
@@ -1005,7 +993,7 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   box-shadow: 0 4px 15px rgba(11, 60, 110, 0.4);
 
   &:hover:not(:disabled) {
@@ -1045,7 +1033,7 @@ export const ErrorMessage = styled.div`
   font-weight: 600;
   text-align: center;
   border: 2px solid #fcc;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   font-size: 0.9rem;
 
   @media (max-width: 768px) {
@@ -1103,7 +1091,7 @@ export const InfoCard = styled.div`
     font-weight: 700;
     color: #0b3c6e;
     margin-bottom: 1rem;
-    font-family: "Manrope", sans-serif;
+    font-family: ${FONTS.PRIMARY};
 
     @media (max-width: 768px) {
       font-size: 1.1rem;
@@ -1119,7 +1107,7 @@ export const InfoCard = styled.div`
   p {
     color: #666;
     line-height: 1.6;
-    font-family: "Manrope", sans-serif;
+    font-family: ${FONTS.PRIMARY};
     font-size: 0.95rem;
 
     @media (max-width: 768px) {

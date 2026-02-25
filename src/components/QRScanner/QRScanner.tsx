@@ -123,7 +123,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ isOpen, onClose, onScan }) => {
       const qrData = cleanUrl.slice(-6); // Get last 6 characters
 
       // Call the onScan callback
-      onScan(qrData);
+        onScan(qrData);
 
       // Close scanner after a short delay
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -165,7 +165,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ isOpen, onClose, onScan }) => {
         </ScannerInstructions>
         <ScannerFrame>
           {/* Display video feed */}
-          <ScannerVideo ref={videoRef} autoPlay playsInline />
+        <ScannerVideo ref={videoRef} autoPlay playsInline />
           
           {/* Hidden QrReader for scanning - uses same camera */}
           <div style={{ display: "none" }}>

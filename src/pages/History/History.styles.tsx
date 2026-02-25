@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const HistoryContainer = styled.div`
   min-height: 100vh;
@@ -40,7 +41,7 @@ export const BackButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover {
     background: #0b3c6e;
@@ -59,7 +60,7 @@ export const HistoryTitle = styled.h1`
   font-weight: 800;
   color: #0b3c6e;
   margin: 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -118,7 +119,7 @@ export const HistoryType = styled.div`
   color: white;
   font-weight: 700;
   font-size: 1.1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     font-size: 1.25rem;
@@ -135,7 +136,7 @@ export const HistoryDate = styled.div`
   gap: 0.5rem;
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     font-size: 1rem;
@@ -174,14 +175,14 @@ export const HistoryLabel = styled.span`
   font-weight: 600;
   color: #666;
   font-size: 0.95rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const HistoryValue = styled.span`
   font-weight: 700;
   color: #0b3c6e;
   font-size: 1.1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   letter-spacing: 1px;
 
   @media (max-width: 480px) {
@@ -206,13 +207,13 @@ export const EmptyState = styled.div`
     font-weight: 700;
     color: #333;
     margin: 0.5rem 0;
-    font-family: "Manrope", sans-serif;
+    font-family: ${FONTS.PRIMARY};
   }
 
   p {
     color: #666;
     font-size: 1rem;
-    font-family: "Manrope", sans-serif;
+    font-family: ${FONTS.PRIMARY};
   }
 `;
 
@@ -224,5 +225,5 @@ export const LoadingState = styled.div`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   font-size: 1.1rem;
   color: #666;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;

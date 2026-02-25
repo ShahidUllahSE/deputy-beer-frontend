@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const QRFieldContainer = styled.div`
   display: flex;
@@ -78,7 +79,7 @@ export const QRButton = styled.button<{ $variant?: string }>`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   white-space: nowrap;
 
   &:hover:not(:disabled) {

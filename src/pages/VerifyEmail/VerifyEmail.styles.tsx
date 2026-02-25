@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -32,7 +33,7 @@ export const Title = styled.h1`
   font-weight: 700;
   color: #333;
   margin-bottom: 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 1.5rem;
@@ -44,7 +45,7 @@ export const Message = styled.p`
   color: #666;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const ButtonDiv = styled.div`
@@ -62,7 +63,7 @@ export const SubmitButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover:not(:disabled) {
     background-color: #7fb8c4;

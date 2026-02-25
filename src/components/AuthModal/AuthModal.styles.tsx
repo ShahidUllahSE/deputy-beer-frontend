@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -70,7 +71,7 @@ export const ModalCloseButton = styled.button`
   justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   line-height: 1;
   z-index: 10;
   pointer-events: auto;
@@ -100,7 +101,7 @@ export const ModalTitle = styled.h2`
   color: #0b3c6e;
   text-align: center;
   margin: 0 0 0.75rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   position: relative;
   padding-bottom: 0.5rem;
 
@@ -130,7 +131,7 @@ export const ModalTitle = styled.h2`
 
 export const FormContainer = styled.div`
   width: 100%;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   overflow-y: auto;
   max-height: calc(95vh - 100px);
   
@@ -156,7 +157,7 @@ export const Label = styled.label`
   color: #333;
   font-weight: 600;
   margin-bottom: 0.2rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 0.75rem;
@@ -170,7 +171,7 @@ export const Input = styled.input`
   border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 13px;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   transition: all 0.3s ease;
   box-sizing: border-box;
   background: white;
@@ -195,7 +196,7 @@ export const ErrorMessage = styled.p`
   color: #dc3545;
   font-size: 0.65rem;
   margin-top: 0.15rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   min-height: 0.85rem;
   line-height: 1.2;
 
@@ -224,7 +225,7 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(11, 60, 110, 0.3);
@@ -252,7 +253,7 @@ export const FooterText = styled.p`
   margin-top: 0.4rem;
   font-size: 0.75rem;
   color: #666;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 0.7rem;

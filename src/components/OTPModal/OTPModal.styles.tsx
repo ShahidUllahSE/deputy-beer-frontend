@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -68,7 +69,7 @@ export const ModalCloseButton = styled.button`
   justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   line-height: 1;
   z-index: 10;
   pointer-events: auto;
@@ -98,7 +99,7 @@ export const ModalTitle = styled.h2`
   color: #0b3c6e;
   text-align: center;
   margin: 0 0 0.75rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   position: relative;
   padding-bottom: 0.5rem;
 
@@ -134,7 +135,7 @@ export const Subtitle = styled.p`
   color: #666;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   strong {
     color: #0b3c6e;
@@ -168,7 +169,7 @@ export const OTPInput = styled.input`
   border-radius: 8px;
   outline: none;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   color: #333;
 
   &:focus {
@@ -192,7 +193,7 @@ export const ErrorMessage = styled.p`
   color: #dc3545;
   font-size: 0.85rem;
   margin-bottom: 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   min-height: 1.2rem;
 `;
 
@@ -200,7 +201,7 @@ export const TimerText = styled.p`
   color: #666;
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   strong {
     color: #0b3c6e;
@@ -228,7 +229,7 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.5px;
 
@@ -253,7 +254,7 @@ export const SubmitButton = styled.button`
 export const ResendText = styled.p`
   font-size: 0.9rem;
   color: #666;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   margin: 0;
 `;
 
@@ -265,7 +266,7 @@ export const ResendButton = styled.button`
   cursor: pointer;
   text-decoration: underline;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   padding: 0;
   margin-left: 4px;
   transition: all 0.3s ease;

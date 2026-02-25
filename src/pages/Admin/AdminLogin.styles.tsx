@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const LoginContainer = styled.div`
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0b3c6e 0%, #2d6ba3 40%, #7fb8c4 75%, #a9d9e0 100%);
   padding: 2rem;
 `;
 
@@ -36,7 +37,7 @@ export const BackLink = styled.button`
   font-weight: 600;
   cursor: pointer;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   transition: color 0.3s ease;
 
   &:hover {
@@ -50,7 +51,7 @@ export const LoginTitle = styled.h1`
   color: #0b3c6e;
   margin: 0 0 2rem 0;
   text-align: center;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 1.75rem;
@@ -76,7 +77,7 @@ export const FormLabel = styled.label`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     color: #0b3c6e;
@@ -89,7 +90,7 @@ export const FormInput = styled.input`
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:focus {
     outline: none;
@@ -108,7 +109,7 @@ export const LoginButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   margin-top: 0.5rem;
 
   &:hover:not(:disabled) {
@@ -128,5 +129,5 @@ export const ErrorMessage = styled.div`
   color: #c33;
   border-radius: 8px;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;

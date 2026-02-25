@@ -498,7 +498,7 @@ function applyMetallicSurfaceEnhancement(
     total += (data[i] + data[i + 1] + data[i + 2]) / 3;
   }
   const avg = total / (data.length / 4);
-  
+
   // More aggressive contrast factor for metallic surfaces
   const factor = (259 * (128 + 100)) / (255 * (259 - 100));
   for (let i = 0; i < data.length; i += 4) {

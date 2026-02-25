@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -64,7 +65,7 @@ export const ModalCloseButton = styled.button`
   justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   line-height: 1;
   z-index: 10;
   pointer-events: auto;
@@ -94,7 +95,7 @@ export const ModalTitle = styled.h2`
   color: #0b3c6e;
   text-align: center;
   margin: 0 0 1rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   position: relative;
   padding-bottom: 0.5rem;
 
@@ -217,7 +218,7 @@ export const CropButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
   letter-spacing: 0.5px;
 
@@ -250,7 +251,7 @@ export const CancelButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover:not(:disabled) {
     background-color: #f5f5f5;
@@ -275,5 +276,5 @@ export const ProcessingText = styled.p`
   font-size: 0.9rem;
   font-weight: 600;
   margin: 0.5rem 0 0 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const AdminContainer = styled.div`
   display: flex;
@@ -54,7 +55,7 @@ export const SidebarTitle = styled.h2`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     font-size: 1.75rem;
@@ -84,7 +85,7 @@ export const MenuItem = styled.div<{ $active?: boolean }>`
   background: ${({ $active }) => ($active ? "rgba(255, 255, 255, 0.1)" : "transparent")};
   border-left: ${({ $active }) => ($active ? "4px solid white" : "4px solid transparent")};
   font-weight: ${({ $active }) => ($active ? "600" : "400")};
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -109,7 +110,7 @@ export const LogoutButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -171,14 +172,14 @@ export const UserName = styled.h3`
   font-weight: 700;
   color: #0b3c6e;
   margin: 0 0 0.5rem 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const UserEmail = styled.p`
   font-size: 0.9rem;
   color: #666;
   margin: 0;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const UserStats = styled.div`
@@ -197,14 +198,14 @@ export const StatLabel = styled.span`
   color: #999;
   font-weight: 600;
   text-transform: uppercase;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const StatValue = styled.span`
   font-size: 1.25rem;
   font-weight: 700;
   color: #0b3c6e;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const UserActions = styled.div`
@@ -225,7 +226,7 @@ export const ActionButton = styled.button<{ $variant?: "view" | "block" | "unblo
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   width: 32px;
   height: 32px;
   position: relative;
@@ -348,7 +349,7 @@ export const HistoryTitle = styled.h2`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     font-size: 1.5rem;
@@ -397,7 +398,7 @@ export const HistoryType = styled.div`
   color: white;
   font-weight: 700;
   font-size: 1.1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     font-size: 1.25rem;
@@ -410,7 +411,7 @@ export const HistoryDate = styled.div`
   gap: 0.5rem;
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   svg {
     font-size: 1rem;
@@ -440,14 +441,14 @@ export const HistoryLabel = styled.span`
   font-weight: 600;
   color: #666;
   font-size: 0.95rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const HistoryValue = styled.span`
   font-weight: 700;
   color: #0b3c6e;
   font-size: 1.1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   letter-spacing: 1px;
 `;
 
@@ -468,13 +469,13 @@ export const EmptyState = styled.div`
     font-weight: 700;
     color: #333;
     margin: 0.5rem 0;
-    font-family: "Manrope", sans-serif;
+    font-family: ${FONTS.PRIMARY};
   }
 
   p {
     color: #666;
     font-size: 1rem;
-    font-family: "Manrope", sans-serif;
+    font-family: ${FONTS.PRIMARY};
   }
 `;
 
@@ -486,7 +487,7 @@ export const LoadingState = styled.div`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   font-size: 1.1rem;
   color: #666;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const ContentContainer = styled.div`
@@ -540,7 +541,7 @@ export const ContentHeader = styled.div`
 export const ContentTitle = styled.h2`
   margin: 0;
   color: #0b3c6e;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   font-size: 2rem;
 
   @media (max-width: 768px) {
@@ -577,7 +578,7 @@ export const SearchInput = styled.input`
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 0.85rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   background: white;
 
   &:focus {
@@ -621,7 +622,7 @@ export const SummaryText = styled.span`
   font-size: 0.85rem;
   color: #666;
   font-weight: 600;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     font-size: 0.75rem;
@@ -641,7 +642,7 @@ export const SummaryBadge = styled.span`
   font-weight: 600;
   background: #ffc107;
   color: #1a1a1a;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 `;
 
 export const TableWrapper = styled.div`
@@ -668,7 +669,7 @@ export const TableWrapper = styled.div`
 export const UsersTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   min-width: 800px;
   margin: 0;
   background: white;
@@ -696,7 +697,7 @@ export const UsersTable = styled.table`
 export const UsersTableOld = styled.table`
   width: 100%;
   border-collapse: collapse;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   display: table;
 
   @media (max-width: 768px) {
@@ -811,7 +812,7 @@ export const StatBadge = styled.span<{ $variant?: "primary" | "success" | "warni
   line-height: 1.2;
   color: #1a1a1a;
   background-color: #ffc107;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     padding: 0.15em 0.4em;
@@ -837,7 +838,7 @@ export const StatusBadge = styled.span<{ $variant?: "active" | "blocked" | "unve
   line-height: 1.2;
   color: #1a1a1a;
   background-color: #ffc107;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-transform: uppercase;
 
   @media (max-width: 768px) {
@@ -866,7 +867,7 @@ export const BackButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   &:hover {
     background: #0b3c6e;
@@ -906,7 +907,7 @@ export const PaginationContainer = styled.div`
 export const PaginationInfo = styled.div`
   color: #666;
   font-size: 0.9rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     font-size: 0.75rem;
@@ -945,7 +946,7 @@ export const PaginationButton = styled.button<{ $active?: boolean }>`
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   min-width: 40px;
 
   &:hover:not(:disabled) {
@@ -984,7 +985,7 @@ export const ExportButton = styled.button`
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   box-shadow: 0 2px 8px rgba(11, 60, 110, 0.2);
   white-space: nowrap;
 

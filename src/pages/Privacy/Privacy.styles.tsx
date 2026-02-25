@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -12,7 +13,7 @@ export const Content = styled.div`
   max-width: 900px;
   margin: 0 auto;
   padding: 3rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   background: white;
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
@@ -64,7 +65,7 @@ export const BackButton = styled.button`
   margin-bottom: 2rem;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   transition: all 0.3s ease;
   display: inline-block;
 
@@ -85,7 +86,7 @@ export const Header = styled.h1`
   font-weight: 900;
   color: #0b3c6e;
   margin-bottom: 2.5rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   text-align: center;
   position: relative;
   padding-bottom: 1.5rem;
@@ -137,7 +138,7 @@ export const SectionTitle = styled.h2`
   font-weight: 700;
   color: #0b3c6e;
   margin-bottom: 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -161,7 +162,7 @@ export const Text = styled.p`
   line-height: 1.7;
   color: #333;
   margin-bottom: 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 480px) {
     font-size: 0.9rem;

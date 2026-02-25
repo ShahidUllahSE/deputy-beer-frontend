@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FONTS } from "../../constants/fonts";
 
 export const ScannerContainer = styled.div`
   position: fixed;
@@ -104,7 +105,7 @@ export const ScannerInstructions = styled.div`
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 8px;
-  font-family: "Manrope", sans-serif;
+  font-family: ${FONTS.PRIMARY};
 
   @media (max-width: 768px) {
     top: 60px;
