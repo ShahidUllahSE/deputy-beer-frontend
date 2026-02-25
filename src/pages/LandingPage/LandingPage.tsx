@@ -323,7 +323,6 @@ const LandingPage: React.FC = () => {
         <img
           src={deputyBanner}
           alt="Deputy Beer Banner"
-          style={{ width: '100%', height: 'auto', display: 'block' }}
         />
         {/* <HeroContent>
           <HeroHeadline>

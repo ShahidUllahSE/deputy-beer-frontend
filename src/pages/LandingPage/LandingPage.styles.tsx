@@ -120,6 +120,7 @@ export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) =>
 
 export const HeroSection = styled.section`
   width: 100%;
+  height: 75vh;
   margin: 0;
   padding: 0;
   display: flex;
@@ -127,12 +128,21 @@ export const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: fill;
+  }
+
+  @media (max-width: 768px) {
+    height: 60vh;
+  }
+
+  @media (max-width: 480px) {
+    height: 50vh;
   }
 `;
 
@@ -362,13 +372,13 @@ export const HeroSubtext = styled.p`
 
 export const InfoStepsSection = styled.section`
   width: 100%;
-  padding: 3rem 5% 2.5rem 5%;
-  background: white;
+  padding: 4rem 5% 3.5rem 5%;
+  background: #d0ebff; /* Even lighter blue */
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  border-top: 1px solid #a5d8ff;
+  border-bottom: 1px solid #a5d8ff;
 
   @media (max-width: 1024px) {
     padding: 2.5rem 4% 2rem 4%;
@@ -420,7 +430,7 @@ export const StepsImageContainer = styled.div`
 export const StepsTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 900;
-  color: #0b3c6e;
+  color: #0b3c6e; /* Restored to navy for light background */
   text-align: center;
   margin: 0 0 3rem 0;
   font-family: ${FONTS.PRIMARY};
@@ -665,16 +675,16 @@ export const QRFormSection = styled.section`
   width: 100%;
   background-color: #e3f2fd;
   padding: 3rem 2rem;
-  margin-top: 3rem;
+  margin-top: 0; /* Remove extra whitespace */
 
   @media (max-width: 768px) {
     padding: 2rem 1.5rem;
-    margin-top: 2rem;
+    margin-top: 0;
   }
 
   @media (max-width: 480px) {
     padding: 1.5rem 1rem;
-    margin-top: 1.5rem;
+    margin-top: 0;
   }
 `;
 
