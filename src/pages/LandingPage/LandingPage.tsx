@@ -7,6 +7,7 @@ import QRScanner from "../../components/QRScanner/QRScanner";
 import { extractQRCode } from "../../utils/qrExtractor";
 import deputyBanner from "../../assets/deputyBanner.jpg";
 import howToEnterImage from "../../assets/How to enter.png";
+import deputynewlogo from "../../assets/deputynewlogo.png";
 import {
   LandingContainer,
   HeroSection,
@@ -266,7 +267,9 @@ const LandingPage: React.FC = () => {
     <LandingContainer>
       <Header>
         <HeaderContent>
-          <Logo>Deputy Beer</Logo>
+          <Logo>
+            <img src={deputynewlogo} alt="Deputy Beer" />
+          </Logo>
           <AuthButtons>
             {isLoggedIn ? (
               <>

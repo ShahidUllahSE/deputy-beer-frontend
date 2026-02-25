@@ -13,51 +13,65 @@ export const Header = styled.header`
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid #e0e0e0;
-  padding: 0.75rem 2rem;
+  padding: 0 2rem;
+  height: 60px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  display: flex;
+  align-items: center;
 
   @media (max-width: 768px) {
-    padding: 0.75rem 1.5rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 0 1.5rem;
+    height: 55px;
   }
 
   @media (max-width: 480px) {
-    padding: 0.65rem 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0 1rem;
+    height: 50px;
   }
 `;
 
 export const HeaderContent = styled.div`
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-
-  @media (max-width: 480px) {
-    gap: 0.5rem;
-  }
+  height: 100%;
 `;
 
 export const Logo = styled.div`
-  font-size: 20px;
-  font-weight: 800;
-  color: ${COLORS.navy};
-  font-family: ${FONTS.PRIMARY};
-  white-space: nowrap;
-  letter-spacing: -0.5px;
+  height: 100%;
+  width: 180px; /* Occupy space on the left */
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 90px;
+    width: auto;
+    object-fit: contain;
+    z-index: 10;
+  }
 
   @media (max-width: 768px) {
-    font-size: 18px;
-    letter-spacing: -0.3px;
+    width: 150px;
+    img {
+      height: 75px;
+    }
   }
 
   @media (max-width: 480px) {
-    font-size: 16px;
-    letter-spacing: -0.2px;
+    width: 120px;
+    img {
+      height: 65px;
+    }
   }
 `;
 
@@ -73,7 +87,7 @@ export const AuthButtons = styled.div`
 
 export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) => ({
   as: props.as || 'button',
-}))<{ $primary?: boolean }>`
+})) <{ $primary?: boolean }>`
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
   font-size: 13px;
