@@ -120,7 +120,6 @@ export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) =>
 
 export const HeroSection = styled.section`
   width: 100%;
-  height: 75vh;
   margin: 0;
   padding: 0;
   display: flex;
@@ -132,17 +131,8 @@ export const HeroSection = styled.section`
 
   img {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
-    object-fit: fill;
-  }
-
-  @media (max-width: 768px) {
-    height: 60vh;
-  }
-
-  @media (max-width: 480px) {
-    height: 50vh;
   }
 `;
 
@@ -430,7 +420,7 @@ export const StepsImageContainer = styled.div`
 export const StepsTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 900;
-  color: #0b3c6e; /* Restored to navy for light background */
+  color: #0b3c6e;
   text-align: center;
   margin: 0 0 3rem 0;
   font-family: ${FONTS.PRIMARY};
