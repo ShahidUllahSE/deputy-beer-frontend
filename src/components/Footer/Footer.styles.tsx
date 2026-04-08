@@ -1,44 +1,25 @@
 import styled from "styled-components";
 import { FONTS } from "../../constants/fonts";
 
+/* Banner deep purple: #0b1a69 + #000034 only, deep purple dominates like banner */
 export const FooterContainer = styled.footer`
-  background: linear-gradient(135deg, #0b3c6e 0%, #2d6ba3 100%);
-  padding: 3rem 0 2rem 0;
+  background: linear-gradient(
+    180deg,
+    #0b1a69 0%,
+    #0b1a69 22%,
+    #000034 100%
+  );
+  padding: 0.55rem 0 1.35rem 0;
   margin-top: auto;
   position: relative;
   overflow: hidden;
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 150px;
-    background: linear-gradient(
-      to right,
-      rgba(169, 217, 224, 0.3) 0%,
-      transparent 100%
-    );
-    z-index: 0;
-  }
-
-  &::before {
-    left: 0;
-    transform: skewX(-15deg);
-  }
-
-  &::after {
-    right: 0;
-    transform: skewX(15deg);
-  }
-
   @media (max-width: 768px) {
-    padding: 2.5rem 0 1.75rem 0;
+    padding: 0.65rem 0 0.65rem 0;
   }
 
   @media (max-width: 480px) {
-    padding: 2rem 0 1.5rem 0;
+    padding: 0.5rem 0 0.5rem 0;
   }
 `;
 
@@ -58,53 +39,55 @@ export const Container = styled.div`
   }
 `;
 
+/* Spacing: moderate between logo and section; larger gap before links (section break); moderate between links/contact/copyright */
 export const FooterContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 0;
 
   @media (max-width: 768px) {
-    gap: 1.25rem;
+    gap: 0.65rem;
   }
 
   @media (max-width: 480px) {
-    gap: 1rem;
+    gap: 0.5rem;
   }
 `;
 
 export const FooterLogo = styled.div`
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: white;
   cursor: pointer;
-  font-family: ${FONTS.PRIMARY};
-  text-shadow: 
-    -2px -2px 0 #0b3c6e,
-    2px -2px 0 #0b3c6e,
-    -2px 2px 0 #0b3c6e,
-    2px 2px 0 #0b3c6e,
-    0 0 8px rgba(11, 60, 110, 0.5);
-  transition: all 0.3s ease;
-  text-align: center;
-  letter-spacing: 1px;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 -2.25rem 0;
+
+  img {
+    height: 10rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
 
   &:hover {
-    transform: scale(1.05);
-    text-shadow: 
-      -2px -2px 0 #0b3c6e,
-      2px -2px 0 #0b3c6e,
-      -2px 2px 0 #0b3c6e,
-      2px 2px 0 #0b3c6e,
-      0 0 12px rgba(169, 217, 224, 0.7);
+    opacity: 0.9;
   }
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    img {
+      height: 8rem;
+    }
   }
 
   @media (max-width: 480px) {
-    font-size: 1.75rem;
+    img {
+      height: 6.5rem;
+    }
   }
 `;
 
@@ -129,25 +112,29 @@ export const FooterTagline = styled.p`
   }
 `;
 
+/* Section break: notably larger margin above Terms & Conditions */
 export const FooterLinks = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 2.5rem;
   flex-wrap: wrap;
+  margin-top: 0.65rem;
 
   @media (max-width: 768px) {
-    gap: 1rem;
+    gap: 2rem;
+    margin-top: 0.25rem;
   }
 
   @media (max-width: 480px) {
-    gap: 0.75rem;
+    gap: 1.25rem;
     flex-direction: column;
+    margin-top: 0.2rem;
   }
 
   @media (max-width: 360px) {
-    gap: 0.5rem;
+    gap: 1rem;
   }
 `;
 
@@ -157,6 +144,7 @@ export const FooterLink = styled.button`
   color: white;
   text-decoration: none;
   font-size: 1rem;
+  letter-spacing: 0.04em;
   transition: all 0.3s ease;
   cursor: pointer;
   font-family: ${FONTS.PRIMARY};
@@ -171,11 +159,11 @@ export const FooterLink = styled.button`
   }
 
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -186,39 +174,44 @@ export const FooterContact = styled.div`
   align-items: center;
   gap: 1.5rem;
   color: white;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
   font-family: ${FONTS.PRIMARY};
+  margin-top: 0.15rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0.75rem;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    margin-top: 0.1rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     gap: 0.5rem;
+    margin-top: 0.1rem;
   }
 `;
 
 export const FooterEmail = styled.span`
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.915rem;
+  letter-spacing: 0.04em;
   text-align: center;
   word-break: break-word;
   max-width: 100%;
 
   @media (max-width: 768px) {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     line-height: 1.4;
   }
 
   @media (max-width: 360px) {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -264,28 +257,32 @@ export const FooterHashtags = styled.div`
 `;
 
 export const FooterNote = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.9);
-  margin: 0;
+  margin: 0.15rem 0 0 0;
   padding: 0 1rem;
   font-family: ${FONTS.PRIMARY};
+  letter-spacing: 0.03em;
   text-align: center;
   word-break: break-word;
   max-width: 100%;
   line-height: 1.5;
 
   @media (max-width: 768px) {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     padding: 0 0.5rem;
+    margin-top: 0.1rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     line-height: 1.4;
     padding: 0 0.5rem;
+    margin-top: 0.1rem;
   }
 
   @media (max-width: 360px) {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
+    margin-top: 0.1rem;
   }
 `;

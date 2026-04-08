@@ -5,12 +5,18 @@ import { toast } from "react-toastify";
 import { FaCamera, FaUpload, FaCheckCircle } from "react-icons/fa";
 import QRScanner from "../../components/QRScanner/QRScanner";
 import { extractQRCode } from "../../utils/qrExtractor";
-import deputyBanner from "../../assets/deputyBanner.jpg";
+import deputyBanner1 from "../../assets/deputyBanner1.jpg";
+import deputyBanner2 from "../../assets/deputyBanner2.jpg";
 import howToEnterImage from "../../assets/How to enter.png";
 import deputynewlogo from "../../assets/deputynewlogo.png";
 import {
   LandingContainer,
   HeroSection,
+  BannerCarousel,
+  BannerTrack,
+  BannerSlide,
+  CarouselDots,
+  CarouselDot,
   InfoStepsSection,
   StepsTitle,
   StepsImageContainer,
@@ -36,6 +42,7 @@ import {
   Logo,
   AuthButtons,
   AuthButton,
+  WelcomeText,
 } from "./LandingPage.styles";
 import { RootState } from "../../redux/store";
 import { apiService } from "../../services/api";
@@ -87,6 +94,16 @@ const LandingPage: React.FC = () => {
   const [cropImageSrc, setCropImageSrc] = useState<string>("");
   const [cropImageIndex, setCropImageIndex] = useState<number | null>(null);
 
+  const [bannerIndex, setBannerIndex] = useState(0);
+  const bannerImages = [deputyBanner1, deputyBanner2];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setBannerIndex((prev) => (prev + 1) % 2);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
+
   const handleScanClick = (index: number) => {
     if (!isLoggedIn) {
       toast.error("Please sign in or sign up to participate");
@@ -133,7 +150,10 @@ const LandingPage: React.FC = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleCropComplete = (croppedImageData: string, qrCodeValue: string | null) => {
+  const handleCropComplete = (
+    croppedImageData: string,
+    qrCodeValue: string | null,
+  ) => {
     if (cropImageIndex !== null) {
       const index = cropImageIndex; // Capture index to avoid closure issues
       if (qrCodeValue) {
@@ -149,7 +169,9 @@ const LandingPage: React.FC = () => {
         setError(null);
         toast.success(`QR Code ${index + 1} extracted successfully!`);
       } else {
-        toast.error("No QR code found in the cropped area. Please try cropping again.");
+        toast.error(
+          "No QR code found in the cropped area. Please try cropping again.",
+        );
       }
     }
     setIsCropModalOpen(false);
@@ -204,29 +226,41 @@ const LandingPage: React.FC = () => {
     setError(null);
 
     try {
-      const qrCodeValues = qrCodes.map((qr) => qr.value).filter(Boolean) as string[];
+      const qrCodeValues = qrCodes
+        .map((qr) => qr.value)
+        .filter(Boolean) as string[];
 
       // Validate each QR code before submitting
       const validationResults = await Promise.all(
         qrCodeValues.map(async (code, idx) => {
           try {
             const validation = await apiService.validateQRCode(code);
-            return { index: idx, code, isValid: validation.isValid, error: null };
+            return {
+              index: idx,
+              code,
+              isValid: validation.isValid,
+              error: null,
+            };
           } catch (error: any) {
             return { index: idx, code, isValid: false, error: error.message };
           }
-        })
+        }),
       );
 
       // Check if any QR code is invalid
-      const invalidCodes = validationResults.filter((result) => !result.isValid);
+      const invalidCodes = validationResults.filter(
+        (result) => !result.isValid,
+      );
       if (invalidCodes.length > 0) {
         const errorMessages = invalidCodes.map(
-          (result) => `Crown #${result.index + 1}: ${result.error || "Invalid or already used"}`
+          (result) =>
+            `Crown #${result.index + 1}: ${result.error || "Invalid or already used"}`,
         );
         const errorMsg = `Invalid QR codes detected:\n${errorMessages.join("\n")}`;
         setError(errorMsg);
-        toast.error("One or more QR codes are invalid or have already been used.");
+        toast.error(
+          "One or more QR codes are invalid or have already been used.",
+        );
         setIsSubmitting(false);
         return;
       }
@@ -234,7 +268,14 @@ const LandingPage: React.FC = () => {
       // All QR codes are valid, proceed with submission
       const response = await apiService.submitEntry(qrCodeValues);
 
-      toast.success(response.message || "Entry submitted successfully! Good luck!");
+      toast.success(
+        response.message || "Entry submitted successfully! Good luck!",
+      );
+
+      // Redirect to success page with entry id for tracking/pixels
+      const entryId = (response as any)?.entry?._id || "";
+      const orderParam = encodeURIComponent(entryId);
+      navigate(`/entry/success?order=${orderParam}`);
 
       // Reset form after successful submission
       setQrCodes([
@@ -246,10 +287,15 @@ const LandingPage: React.FC = () => {
       // Form stays visible after submission
     } catch (error: any) {
       console.error("Error submitting entry:", error);
-      const errorMessage = error.message || "Failed to submit entry. Please try again.";
+      const errorMessage =
+        error.message || "Failed to submit entry. Please try again.";
 
       // Check if error message indicates invalid/used QR codes
-      if (errorMessage.includes("invalid") || errorMessage.includes("used") || errorMessage.includes("already")) {
+      if (
+        errorMessage.includes("invalid") ||
+        errorMessage.includes("used") ||
+        errorMessage.includes("already")
+      ) {
         setError(`QR Code Error: ${errorMessage}`);
       } else {
         setError(errorMessage);
@@ -262,6 +308,7 @@ const LandingPage: React.FC = () => {
   };
 
   const allQRCodesFilled = qrCodes.every((qr) => qr.value !== null);
+  const shortName = username?.split(" ")[0];
 
   return (
     <LandingContainer>
@@ -273,17 +320,10 @@ const LandingPage: React.FC = () => {
           <AuthButtons>
             {isLoggedIn ? (
               <>
-                <span style={{
-                  color: "#333",
-                  fontWeight: 600,
-                  fontSize: "14px",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxWidth: "200px"
-                }}>
-                  Welcome, {username || "User"}!
-                </span>
+                <WelcomeText>
+                  {" "}
+                  Welcome {window.innerWidth < 480 ? shortName : username}
+                </WelcomeText>
                 {role === "admin" ? (
                   <AuthButton as={Link} to="/admin/dashboard" $primary>
                     Admin Panel
@@ -309,8 +349,21 @@ const LandingPage: React.FC = () => {
               </>
             ) : (
               <>
-                <AuthButton onClick={() => { setIsAuthModalOpen(true); setAuthMode("signin"); }}>Sign In</AuthButton>
-                <AuthButton $primary onClick={() => { setIsAuthModalOpen(true); setAuthMode("signup"); }}>
+                <AuthButton
+                  onClick={() => {
+                    setIsAuthModalOpen(true);
+                    setAuthMode("signin");
+                  }}
+                >
+                  Sign In
+                </AuthButton>
+                <AuthButton
+                  $primary
+                  onClick={() => {
+                    setIsAuthModalOpen(true);
+                    setAuthMode("signup");
+                  }}
+                >
                   Sign Up
                 </AuthButton>
               </>
@@ -320,10 +373,25 @@ const LandingPage: React.FC = () => {
       </Header>
 
       <HeroSection>
-        <img
-          src={deputyBanner}
-          alt="Deputy Beer Banner"
-        />
+        <BannerCarousel>
+          <BannerTrack $offset={-bannerIndex * 100}>
+            {bannerImages.map((img, i) => (
+              <BannerSlide key={i}>
+                <img src={img} alt={`Deputy Beer Banner ${i + 1}`} />
+              </BannerSlide>
+            ))}
+          </BannerTrack>
+          <CarouselDots>
+            {bannerImages.map((_, i) => (
+              <CarouselDot
+                key={i}
+                $active={i === bannerIndex}
+                onClick={() => setBannerIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </CarouselDots>
+        </BannerCarousel>
         {/* <HeroContent>
           <HeroHeadline>
             ENTER TO WIN A TRIP FOR YOU&nbsp;+&nbsp;3<br />
@@ -341,7 +409,7 @@ const LandingPage: React.FC = () => {
           <img
             src={howToEnterImage}
             alt="How to Enter Steps"
-            style={{ width: '100%', height: 'auto', display: 'block' }}
+            style={{ width: "100%", height: "auto", display: "block" }}
           />
         </StepsImageContainer>
 
@@ -349,9 +417,12 @@ const LandingPage: React.FC = () => {
           <StepsSubmitButton
             onClick={() => {
               // Scroll to form section
-              const formSection = document.getElementById('qr-form-section');
+              const formSection = document.getElementById("qr-form-section");
               if (formSection) {
-                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                formSection.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
               }
             }}
           >
@@ -365,12 +436,13 @@ const LandingPage: React.FC = () => {
         <QRFormSection id="qr-form-section">
           <QRFormContainer>
             <QRFormTitle>
-              ENTER TO WIN A TRIP FOR YOU&nbsp;+&nbsp;3<br />
+              ENTER TO WIN A TRIP FOR YOU&nbsp;+&nbsp;3
+              <br />
               TO THE CARIBBEAN'S BIGGEST MUSIC FESTIVALS
             </QRFormTitle>
 
             <QRFormSubtitle>
-              Bring De Vibes to the Caribbean's biggest festivals Scan and upload festivals.
+              Bring De Vibes to the Caribbean's biggest festivals.
             </QRFormSubtitle>
 
             <ModalQRCodeSection>
@@ -379,27 +451,46 @@ const LandingPage: React.FC = () => {
                   const hasValue = !!qr.value || !!qr.imagePreview;
                   return (
                     <ModalQRFieldRow key={index} $hasValue={hasValue}>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <ModalQRFieldLabel>Crown #{index + 1}</ModalQRFieldLabel>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "0.25rem",
+                          flex: 1,
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                          }}
+                        >
+                          <ModalQRFieldLabel>
+                            Crown #{index + 1}
+                          </ModalQRFieldLabel>
                           {!hasValue && (
-                            <span style={{
-                              fontSize: '0.8rem',
-                              color: '#999',
-                              fontFamily: '"Manrope", sans-serif'
-                            }}>
+                            <span
+                              style={{
+                                fontSize: "0.8rem",
+                                color: "#999",
+                                fontFamily: '"Manrope", sans-serif',
+                              }}
+                            >
                               Click to scan/upload QR code
                             </span>
                           )}
                         </div>
                         {hasValue && qr.value && (
-                          <span style={{
-                            fontSize: '0.7rem',
-                            color: '#666',
-                            fontFamily: '"Manrope", sans-serif',
-                            wordBreak: 'break-all',
-                            lineHeight: '1.2'
-                          }}>
+                          <span
+                            style={{
+                              fontSize: "0.7rem",
+                              color: "#666",
+                              fontFamily: '"Manrope", sans-serif',
+                              wordBreak: "break-all",
+                              lineHeight: "1.2",
+                            }}
+                          >
                             {qr.value}
                           </span>
                         )}
@@ -409,7 +500,9 @@ const LandingPage: React.FC = () => {
                           <>
                             <ModalQRFieldIcon
                               $uploaded
-                              onClick={() => !isSubmitting && handleRemove(index)}
+                              onClick={() =>
+                                !isSubmitting && handleRemove(index)
+                              }
                               disabled={isSubmitting}
                               title="Remove QR Code"
                             >
@@ -420,7 +513,9 @@ const LandingPage: React.FC = () => {
                         ) : (
                           <>
                             <ModalQRFieldIcon
-                              onClick={() => !isSubmitting && handleScanClick(index)}
+                              onClick={() =>
+                                !isSubmitting && handleScanClick(index)
+                              }
                               disabled={isSubmitting}
                               title="Scan QR Code"
                             >
@@ -429,11 +524,12 @@ const LandingPage: React.FC = () => {
                             <ModalQRFieldIcon
                               onClick={() => {
                                 if (!isSubmitting) {
-                                  const input = document.createElement('input');
-                                  input.type = 'file';
-                                  input.accept = 'image/*';
+                                  const input = document.createElement("input");
+                                  input.type = "file";
+                                  input.accept = "image/*";
                                   input.onchange = (e) => {
-                                    const file = (e.target as HTMLInputElement).files?.[0];
+                                    const file = (e.target as HTMLInputElement)
+                                      .files?.[0];
                                     if (file) handleUpload(index, file);
                                   };
                                   input.click();
@@ -456,7 +552,8 @@ const LandingPage: React.FC = () => {
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <ModalSubmitText>
-              Submit all 4 crowns for 1 instant entry to win the PRIZE
+              Submit all 4 crowns for 1 Instant Entry to Win the Grand Prize.
+              Promotion ends May 31, 2026.
             </ModalSubmitText>
 
             <SubmitSection>
@@ -467,14 +564,16 @@ const LandingPage: React.FC = () => {
                 {isSubmitting ? "Submitting..." : "SUBMIT ENTRY"}
               </ModalSubmitButton>
               {!isLoggedIn && (
-                <p style={{
-                  marginTop: "1rem",
-                  color: "#666",
-                  fontSize: "14px",
-                  textAlign: "center",
-                  padding: "0 1rem",
-                  lineHeight: "1.5"
-                }}>
+                <p
+                  style={{
+                    marginTop: "1rem",
+                    color: "#666",
+                    fontSize: "14px",
+                    textAlign: "center",
+                    padding: "0 1rem",
+                    lineHeight: "1.5",
+                  }}
+                >
                   Please sign in or sign up to submit your entry
                 </p>
               )}
@@ -512,9 +611,9 @@ const LandingPage: React.FC = () => {
         email={otpEmail}
         onVerificationSuccess={() => {
           setIsOTPModalOpen(false);
-          toast.success("Email verified! Please sign in to continue.");
-          setIsAuthModalOpen(true);
-          setAuthMode("signin");
+          toast.success("Registration successful!");
+          const orderParam = encodeURIComponent(otpEmail || "");
+          navigate(`/signup/success?order=${orderParam}`);
         }}
       />
 

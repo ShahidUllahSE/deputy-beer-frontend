@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
-import { QrReader } from "react-qr-reader";
+import React, { useEffect, useRef, useState } from "react";
+import { Scanner } from "@yudiel/react-qr-scanner";
 import {
   ScannerContainer,
   ScannerOverlay,
@@ -7,7 +7,6 @@ import {
   ScannerInstructions,
   ScannerFrame,
   SwitchCameraButton,
-  ScannerVideo,
 } from "./QRScanner.styles";
 import { FaTimes, FaSyncAlt } from "react-icons/fa";
 
@@ -19,137 +18,96 @@ interface QRScannerProps {
 
 const QRScanner: React.FC<QRScannerProps> = ({ isOpen, onClose, onScan }) => {
   const [scanned, setScanned] = useState(false);
-  const [facingMode, setFacingMode] = useState<"environment" | "user">("user");
+  const [facingMode, setFacingMode] = useState<
+    "environment" | "user" | undefined
+  >("user");
   const [cameraError, setCameraError] = useState(false);
   const timeoutRef = useRef<number | null>(null);
   const lastScannedRef = useRef<string | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
+  const switchedOnErrorRef = useRef(false);
 
-  // Start camera stream for display
-  const startCameraDisplay = async () => {
-    try {
-      // Stop existing stream if any
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
-        streamRef.current = null;
-      }
-
-      setCameraError(false);
-
-      // Request camera access for display
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { 
-          facingMode,
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
-        },
-      });
-
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        streamRef.current = stream;
-        await videoRef.current.play();
-      }
-    } catch (error: any) {
-      console.error("Camera display error:", error);
-      setCameraError(true);
-      
-      // If back camera fails, try front camera
-      if (facingMode === "environment") {
-        console.log("Back camera failed, trying front camera");
-        setTimeout(() => {
-          setFacingMode("user");
-        }, 500);
-      }
-    }
-  };
-
-  // Stop camera stream
-  const stopCameraDisplay = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
-      streamRef.current = null;
-    }
-    if (videoRef.current) {
-      videoRef.current.srcObject = null;
-    }
-  };
-
-  // Reset scanner state when modal opens/closes
   useEffect(() => {
     if (isOpen) {
-      setScanned(false);
-      lastScannedRef.current = null;
-      setFacingMode("user"); // Start with front camera for laptops
-      startCameraDisplay();
-    } else {
-      stopCameraDisplay();
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
+      setCameraError(false);
+      switchedOnErrorRef.current = false;
     }
-
-    return () => {
-      stopCameraDisplay();
-    };
   }, [isOpen]);
 
-  // Restart camera when facingMode changes
-  useEffect(() => {
-    if (isOpen) {
-      startCameraDisplay();
-    }
-  }, [facingMode]);
+  const handleScan = (detectedCodes: { rawValue: string }[]) => {
+    if (!detectedCodes?.length || scanned || !isOpen) return;
 
-  const handleResult = (result: any, error: any) => {
-    if (!!result && !scanned && isOpen) {
-      let qrCodeData = result.getText();
+    let qrCodeData = detectedCodes[0].rawValue;
 
-      // Clean QR data: remove whitespace, newlines, carriage returns
-      qrCodeData = qrCodeData.trim().replace(/\s+/g, "");
+    // Clean QR data: remove whitespace, newlines, carriage returns
+    qrCodeData = qrCodeData.trim().replace(/\s+/g, "");
 
-      // Ignore if same QR is detected again
-      if (lastScannedRef.current === qrCodeData) {
-        return;
-      }
-      lastScannedRef.current = qrCodeData;
+    // Ignore if same QR is detected again
+    if (lastScannedRef.current === qrCodeData) return;
+    lastScannedRef.current = qrCodeData;
 
-      setScanned(true); // lock scanning immediately
+    setScanned(true);
 
-      // Extract last 6 characters from QR code URL
-      const cleanUrl = qrCodeData.replace(/\/$/, ''); // Remove trailing slash
-      const qrData = cleanUrl.slice(-6); // Get last 6 characters
+    // Extract last 6 characters from QR code
+    const cleanUrl = qrCodeData.replace(/\/$/, "");
+    const qrData = cleanUrl.slice(-6);
 
-      // Call the onScan callback
-        onScan(qrData);
+    console.log("QR Code extracted:", { raw: qrCodeData, extracted: qrData });
 
-      // Close scanner after a short delay
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        setScanned(false);
-        lastScannedRef.current = null;
-        onClose();
-      }, 500);
-    }
+    onScan(qrData);
 
-    if (!!error && !scanned) {
-      // Silently handle errors - don't spam console
-      // console.warn("QR error:", error);
-    }
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => {
+      setScanned(false);
+      lastScannedRef.current = null;
+      onClose();
+    }, 500);
   };
 
-  // Toggle between front and back camera
-  const toggleCamera = () => {
-    console.log("Switching camera from", facingMode, "to", facingMode === "environment" ? "user" : "environment");
+  const handleError = (error: unknown) => {
+    const err = error as { name?: string } | null;
+    const isNotReadable = err?.name === "NotReadableError";
+    if (isNotReadable && !switchedOnErrorRef.current) {
+      switchedOnErrorRef.current = true;
+      // Try: user -> environment -> no constraint (let browser pick)
+      setFacingMode((prev) => {
+        if (prev === "user") return "environment";
+        if (prev === "environment") return undefined; // { video: true }
+        return "user"; // fallback
+      });
+      return;
+    }
+    setCameraError(true);
+  };
+
+  const handleRetry = () => {
+    setCameraError(false);
+    switchedOnErrorRef.current = false;
     setFacingMode((prev) => {
-      const newMode = prev === "environment" ? "user" : "environment";
-      return newMode;
+      if (prev === "user") return "environment";
+      if (prev === "environment") return undefined;
+      return "user";
+    });
+  };
+
+  const toggleCamera = () => {
+    setFacingMode((prev) => {
+      if (prev === "user") return "environment";
+      if (prev === "environment") return undefined;
+      return "user";
     });
     setScanned(false);
     lastScannedRef.current = null;
     setCameraError(false);
+  };
+
+  const handleClose = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setScanned(false);
+    lastScannedRef.current = null;
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -157,39 +115,76 @@ const QRScanner: React.FC<QRScannerProps> = ({ isOpen, onClose, onScan }) => {
   return (
     <ScannerContainer>
       <ScannerOverlay>
-        <CloseButton onClick={onClose}>
+        <CloseButton onClick={handleClose}>
           <FaTimes />
         </CloseButton>
         <ScannerInstructions>
           Position the QR code within the frame
+          <span
+            style={{
+              display: "block",
+              fontSize: "0.85em",
+              marginTop: "6px",
+              opacity: 0.9,
+            }}
+          >
+            Crown/cap not scanning? Use good lighting, hold flat, avoid glare,
+            or use Upload.
+          </span>
         </ScannerInstructions>
         <ScannerFrame>
-          {/* Display video feed */}
-        <ScannerVideo ref={videoRef} autoPlay playsInline />
-          
-          {/* Hidden QrReader for scanning - uses same camera */}
-          <div style={{ display: "none" }}>
-            <QrReader
-              key={facingMode}
-              constraints={{ facingMode }}
-              onResult={handleResult}
-            />
-          </div>
+          <Scanner
+            key={facingMode ?? "default"}
+            onScan={handleScan}
+            onError={handleError}
+            constraints={facingMode ? { facingMode } : {}}
+            allowMultiple={false}
+            components={{ finder: true }}
+            styles={{
+              container: { width: "100%", height: "100%" },
+              video: { width: "100%", height: "100%", objectFit: "cover" },
+            }}
+          />
 
           {cameraError && (
-            <div style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              color: "white",
-              textAlign: "center",
-              padding: "1rem",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
-              borderRadius: "8px",
-              zIndex: 10
-            }}>
-              Camera not accessible. Please check permissions.
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                color: "white",
+                textAlign: "center",
+                padding: "1.25rem",
+                backgroundColor: "rgba(0, 0, 0, 0.85)",
+                borderRadius: "8px",
+                zIndex: 10,
+                maxWidth: "90%",
+              }}
+            >
+              <p style={{ margin: "0 0 0.75rem 0" }}>
+                Camera not accessible. Another app may be using it, or
+                permissions are blocked.
+              </p>
+              <p style={{ margin: 0, fontSize: "0.9em", opacity: 0.9 }}>
+                Close Zoom, Teams, or other camera apps, then tap Retry.
+              </p>
+              <button
+                onClick={handleRetry}
+                style={{
+                  marginTop: "1rem",
+                  padding: "0.5rem 1.25rem",
+                  background: "#0b3c6e",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                }}
+              >
+                Retry
+              </button>
             </div>
           )}
         </ScannerFrame>

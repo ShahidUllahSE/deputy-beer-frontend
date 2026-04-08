@@ -109,7 +109,8 @@ const VerifyOTP: React.FC = () => {
     try {
       const response = await apiService.verifyOTP(email, otpString);
       toast.success(response.message || "Email verified successfully!");
-      navigate("/signin");
+      const orderParam = encodeURIComponent(email);
+      navigate(`/signup/success?order=${orderParam}`);
     } catch (error: any) {
       setError(error.message || "Invalid verification code. Please try again.");
       // Clear OTP on error

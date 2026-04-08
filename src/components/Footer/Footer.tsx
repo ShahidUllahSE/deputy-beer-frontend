@@ -1,16 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import deputyLogo from "../../assets/deputyfooterlogo.png";
 import {
   FooterContainer,
   Container,
   FooterContent,
   FooterLogo,
-  FooterTagline,
   FooterLinks,
   FooterLink,
   FooterContact,
   FooterEmail,
-  FooterHashtags,
   FooterNote,
 } from "./Footer.styles";
 
@@ -25,13 +24,10 @@ const Footer: React.FC<FooterProps> = ({ copyrightText }) => {
     <FooterContainer>
       <Container>
         <FooterContent>
-          {/* Logo */}
+          {/* Logo - image sized like the text (large, prominent) */}
           <FooterLogo onClick={() => navigate("/")}>
-            Deputy Beer
+            <img src={deputyLogo} alt="Deputy Beer" />
           </FooterLogo>
-
-          {/* Tagline */}
-          <FooterTagline>Bring De Vibes to the Caribbean</FooterTagline>
 
           {/* Terms & Conditions and Privacy Links */}
           <FooterLinks>
@@ -45,13 +41,10 @@ const Footer: React.FC<FooterProps> = ({ copyrightText }) => {
 
           {/* Contact Information */}
           <FooterContact>
-            <FooterEmail>Contact Support: deputybeer@example.com</FooterEmail>
+            <FooterEmail>
+              Contact Support: deputypromotions@gmail.com
+            </FooterEmail>
           </FooterContact>
-
-          {/* Hashtags */}
-          <FooterHashtags>
-            Hashtags: #DeputyBeer #CaribbeanFestivals #WinBig
-          </FooterHashtags>
 
           {/* Copyright */}
           <FooterNote>{copyrightText}</FooterNote>

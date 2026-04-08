@@ -26,27 +26,14 @@ export const ScannerOverlay = styled.div`
 `;
 
 export const ScannerFrame = styled.div`
-  width: 100%;
-  max-width: 400px;
-  height: 400px;
+  width: 288px;
+  height: 288px;
   border-radius: 8px;
   overflow: hidden;
   border: 3px solid white;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   position: relative;
   background-color: #000;
-
-  @media (max-width: 768px) {
-    max-width: 90%;
-    height: 350px;
-  }
-
-  @media (max-width: 480px) {
-    max-width: 95%;
-    height: 300px;
-    border-radius: 6px;
-    border-width: 2px;
-  }
 `;
 
 export const ScannerVideo = styled.video`

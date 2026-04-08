@@ -9,17 +9,21 @@ import History from "../pages/History/History";
 import AdminLogin from "../pages/Admin/AdminLogin";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import UserHistory from "../pages/Admin/UserHistory";
+import SignupSuccess from "../pages/SignupSuccess/SignupSuccess";
+import EntrySuccess from "../pages/EntrySuccess/EntrySuccess";
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup/success" element={<SignupSuccess />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/verify-otp" element={<VerifyOTP />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms-conditions" element={<Terms />} />
       <Route path="/history" element={<History />} />
+      <Route path="/entry/success" element={<EntrySuccess />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/admin/users/:userId/history" element={<UserHistory />} />

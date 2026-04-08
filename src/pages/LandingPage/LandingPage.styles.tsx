@@ -85,9 +85,11 @@ export const AuthButtons = styled.div`
   }
 `;
 
-export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) => ({
-  as: props.as || 'button',
-})) <{ $primary?: boolean }>`
+export const AuthButton = styled.button.attrs<{ $primary?: boolean }>(
+  (props) => ({
+    as: props.as || "button",
+  }),
+)<{ $primary?: boolean }>`
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
   font-size: 13px;
@@ -96,13 +98,15 @@ export const AuthButton = styled.button.attrs<{ $primary?: boolean }>((props) =>
   transition: all 0.3s ease;
   font-family: ${FONTS.PRIMARY};
   border: ${({ $primary }) => ($primary ? "none" : `2px solid ${COLORS.navy}`)};
-  background-color: ${({ $primary }) => ($primary ? COLORS.navy : "transparent")};
+  background-color: ${({ $primary }) =>
+    $primary ? COLORS.navy : "transparent"};
   color: ${({ $primary }) => ($primary ? COLORS.white : COLORS.navy)};
   white-space: nowrap;
   text-decoration: none;
 
   &:hover {
-    background-color: ${({ $primary }) => ($primary ? COLORS.primaryBlue : COLORS.lightBlue)};
+    background-color: ${({ $primary }) =>
+      $primary ? COLORS.primaryBlue : COLORS.lightBlue};
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
@@ -128,11 +132,63 @@ export const HeroSection = styled.section`
   justify-content: center;
   position: relative;
   overflow: hidden;
+  background: #000;
 
   img {
     width: 100%;
     height: auto;
     display: block;
+  }
+`;
+
+export const BannerCarousel = styled.div`
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+`;
+
+export const BannerTrack = styled.div<{ $offset: number }>`
+  display: flex;
+  width: 100%;
+  transform: translateX(${({ $offset }) => $offset}%);
+  transition: transform 0.6s ease-in-out;
+`;
+
+export const BannerSlide = styled.div`
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`;
+
+export const CarouselDots = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 5;
+`;
+
+export const CarouselDot = styled.button<{ $active: boolean }>`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: ${({ $active }) => ($active ? "white" : "transparent")};
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.6);
   }
 `;
 
@@ -208,7 +264,9 @@ export const HeroHeadline = styled.h1`
   white-space: pre-line;
   text-align: left;
   margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+  text-shadow:
+    2px 2px 8px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 1200px) {
     font-size: 2.25rem;
@@ -263,7 +321,9 @@ export const HeroSubheadline = styled.p`
   text-align: left;
   position: relative;
   padding-left: 1.5rem;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.5);
+  text-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(0, 0, 0, 0.5);
 
   &::before {
     content: "";
@@ -273,7 +333,11 @@ export const HeroSubheadline = styled.p`
     transform: translateY(-50%);
     width: 4px;
     height: 100%;
-    background: linear-gradient(to bottom, ${COLORS.white}, rgba(255, 255, 255, 0.7));
+    background: linear-gradient(
+      to bottom,
+      ${COLORS.white},
+      rgba(255, 255, 255, 0.7)
+    );
     border-radius: 2px;
   }
 
@@ -292,11 +356,11 @@ export const HeroSubheadline = styled.p`
     text-align: center;
     padding-left: 0;
     padding-top: 1rem;
-    
+
     &::before {
       display: none;
     }
-    
+
     &::after {
       content: "";
       display: block;
@@ -331,7 +395,9 @@ export const HeroSubtext = styled.p`
   font-weight: 600;
   color: white;
   font-family: ${FONTS.PRIMARY};
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.6);
+  text-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.8),
+    0 0 15px rgba(0, 0, 0, 0.6);
   position: relative;
   z-index: 2;
   max-width: 50%;
@@ -363,7 +429,7 @@ export const HeroSubtext = styled.p`
 export const InfoStepsSection = styled.section`
   width: 100%;
   padding: 4rem 5% 3.5rem 5%;
-  background: #d0ebff; /* Even lighter blue */
+  background: #e90076;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -371,13 +437,13 @@ export const InfoStepsSection = styled.section`
   border-bottom: 1px solid #a5d8ff;
 
   @media (max-width: 1024px) {
-    padding: 2.5rem 4% 2rem 4%;
+    padding: 2rem 4% 2rem 4%;
   }
 
   @media (max-width: 768px) {
     padding: 2rem 2rem 1.75rem 2rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    // margin-top: 1rem;
+    // margin-bottom: 1.5rem;
   }
 
   @media (max-width: 480px) {
@@ -402,7 +468,7 @@ export const StepsImageContainer = styled.div`
 
   @media (max-width: 768px) {
     margin-bottom: 1.5rem;
-    
+
     img {
       border-radius: 10px;
     }
@@ -410,7 +476,7 @@ export const StepsImageContainer = styled.div`
 
   @media (max-width: 480px) {
     margin-bottom: 1.25rem;
-    
+
     img {
       border-radius: 8px;
     }
@@ -466,7 +532,10 @@ export const InfoStepsContainer = styled.div`
   }
 `;
 
-export const InfoStepItem = styled.div<{ $isOrange?: boolean; $hasChevron?: boolean }>`
+export const InfoStepItem = styled.div<{
+  $isOrange?: boolean;
+  $hasChevron?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -475,7 +544,8 @@ export const InfoStepItem = styled.div<{ $isOrange?: boolean; $hasChevron?: bool
   background: ${({ $isOrange }) => ($isOrange ? COLORS.orange : COLORS.white)};
   padding: 2rem 1.5rem 2rem 1.5rem;
   padding-right: ${({ $hasChevron }) => ($hasChevron ? "3rem" : "1.5rem")};
-  border-radius: ${({ $hasChevron }) => ($hasChevron ? "12px 0 0 12px" : "0 12px 12px 0")};
+  border-radius: ${({ $hasChevron }) =>
+    $hasChevron ? "12px 0 0 12px" : "0 12px 12px 0"};
   min-height: 200px;
   justify-content: flex-start;
   clip-path: ${({ $hasChevron }) =>
@@ -630,7 +700,12 @@ export const StepsSubmitButton = styled.button`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s;
   }
 
@@ -800,7 +875,8 @@ export const ModalQRFieldIcon = styled.button<{ $uploaded?: boolean }>`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: ${({ $uploaded }) => ($uploaded ? "#0b3c6e" : "transparent")};
+  background-color: ${({ $uploaded }) =>
+    $uploaded ? "#0b3c6e" : "transparent"};
   border: ${({ $uploaded }) => ($uploaded ? "none" : "2px solid #0b3c6e")};
   color: ${({ $uploaded }) => ($uploaded ? "white" : "#0b3c6e")};
   display: flex;
@@ -1062,6 +1138,21 @@ export const ErrorMessage = styled.div`
   }
 `;
 
+export const WelcomeText = styled.span`
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    max-width: 120px;
+    white-space: nowrap;
+  }
+`;
+
 export const InfoSection = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1150,4 +1241,3 @@ export const InfoCard = styled.div`
     border-radius: 10px;
   }
 `;
-
